@@ -15,7 +15,7 @@ export default function Relatorio({relatorio,displayRelatorio,handleDisplayRelat
             acertou += 1
         }
     });
-
+    console.log(relatorio)
 
     const pontuacao = `${acertou}/${relatorio.length}`;
     

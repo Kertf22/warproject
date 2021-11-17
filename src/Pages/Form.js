@@ -19,10 +19,10 @@ export default function Form(props){
     const [error, setError] = useState(false);
     let allHaveAnwsers = true;
     
-    const handleQuestions = (questionIndex, isRight, Anwser) => {
+    const handleQuestions = (questionIndex, Anwser, correct_answer) => {
+        const isRight = Anwser === correct_answer;
         RightAnwsers[questionIndex] = isRight;
         Anwsers[questionIndex] = Anwser;
-
     }
 
     const handleSubmit = () => {
@@ -42,18 +42,22 @@ export default function Form(props){
                 ...item,
                 anwser:Anwsers[i],
                 acertou:RightAnwsers[i],
-            })
-        });
+            })});
     
        setRelatorio(relatorio);
        props.history.push("/");
     };
 
-    useEffect(async () => {
-        const { data } = await axios.get(`https://opentdb.com/api.php?amount=${number}`);
+    useEffect(() => {
+        async function getData(){
+            const { data } = await axios.get(`https://opentdb.com/api.php?amount=${number}`);
 
-        setQuestions(data.results);
-    }, [])
+            setQuestions(data.results);
+        }
+        
+        getData()
+        
+    }, [number]);
 
     questions.forEach(item => {
         RightAnwsers.push(undefined);

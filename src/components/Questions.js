@@ -23,7 +23,7 @@ export default function Questions({type,question,correct_answer,incorrect_answer
 
     useEffect(()=> {
         setOptions(shuffleArray([correct_answer,...incorrect_answers]))
-    },[]);
+    },[correct_answer,incorrect_answers]);
     
    
     const [alternative, setAlternative] = useState();
@@ -31,9 +31,8 @@ export default function Questions({type,question,correct_answer,incorrect_answer
     const handleaAlternative = (e) => {
 
         setAlternative(e.target.value);
-        const isTrue = alternative === correct_answer;
         
-        handleQuestions(questionIndex, isTrue,e.target.value);
+        handleQuestions(questionIndex,e.target.value,correct_answer);
     };
 
 
